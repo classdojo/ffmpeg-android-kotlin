@@ -43,6 +43,12 @@ in your `app` build.gradle file (`dependencies` section)
 
 4. [usage example](kotlin-wrapper/app/src/main/java/com/github/fourtalk/kotlin_wrapper/Converter.kt)
 
+TODO:
+----
+- Update the version of the NDK used to the most recent
+- Update instructions for the latest Android studio
+- Update compilation instructions (Docker)
+
 Licenses
 ----
 - FFmpeg: LGPL 3.0  
