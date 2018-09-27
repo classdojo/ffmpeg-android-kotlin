@@ -33,7 +33,6 @@ make distclean
 $ASM \
 --disable-debug \
 --disable-symver \
---disable-ffserver \
 --disable-ffplay \
 --disable-ffprobe \
 --disable-gpl \
