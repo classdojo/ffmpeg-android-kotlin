@@ -20,7 +20,7 @@ pipeline {
         stage('Build ffmpegandroid library') { 
             steps {
                 // Builds the ffmpeg android library using gradle
-                sh './build_android_library.sh'
+                sh 'docker run --rm -v "$PWD":/usr/src/kotlin-ffmpeg-android -w /usr/src/kotlin-ffmpeg-android ffmpeg_android_kotlin "./build_android_library.sh"'
             }
         }
         stage('Deploy ffmpegandroid library to artifactory') {
