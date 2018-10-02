@@ -24,11 +24,6 @@ pipeline {
             }
         }
         stage('Deploy ffmpegandroid library to artifactory') {
-            environment {
-                ARTIFACTORY_USER        = credentials('artifactoryUser')
-                ARTIFACTORY_PASSWORD    = credentials('artifactoryPassword')
-                ARTIFACTORY_BASE_URL    = credentials('artifactoryBaseUrl')
-            }
             steps {
                 // Runs the gradle step to deploy the aar to artifactory
                 sh './docker_deploy_library.sh'
