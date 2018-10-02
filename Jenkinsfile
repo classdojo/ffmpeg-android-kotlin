@@ -30,4 +30,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            archiveArtifacts artifacts: 'kotlin-wrapper/ffmpegandroid/build/outputs/aar/*.aar', fingerprint: true
+        }
+    }
 }
