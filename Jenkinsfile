@@ -1,10 +1,5 @@
 pipeline {
     agent { label 'AndroidDockerizedBuildSlave' }
-    environment {
-        ARTIFACTORY_USER        = credentials('artifactoryUser')
-        ARTIFACTORY_PASSWORD    = credentials('artifactoryPassword')
-        ARTIFACTORY_BASE_URL    = credentials('artifactoryBaseUrl')
-    }
     stages {
         stage('Fetch submodules') {
             steps {
@@ -29,9 +24,14 @@ pipeline {
             }
         }
         stage('Deploy ffmpegandroid library to artifactory') {
+            environment {
+                ARTIFACTORY_USER        = credentials('artifactoryUser')
+                ARTIFACTORY_PASSWORD    = credentials('artifactoryPassword')
+                ARTIFACTORY_BASE_URL    = credentials('artifactoryBaseUrl')
+            }
             steps {
                 // Runs the gradle step to deploy the aar to artifactory
-                sh 'docker run --rm -e ARTIFACTORY_USER=$ARTIFACTORY_USER -e ARTIFACTORY_BASE_URL=$ARTIFACTORY_BASE_URL -e ARTIFACTORY_PASSWORD=$ARTIFACTORY_PASSWORD -v "$PWD":/usr/src/kotlin-ffmpeg-android -w /usr/src/kotlin-ffmpeg-android ffmpeg_android_kotlin "./deploy_android_library.sh"'
+                sh './docker_deploy_library.sh'
             }
         }
     }
