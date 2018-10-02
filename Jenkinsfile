@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy ffmpegandroid library to artifactory') {
             steps {
                 // Runs the gradle step to deploy the aar to artifactory
-                
+                sh 'echo TODO run the deploy step'
             }
         }
     }
