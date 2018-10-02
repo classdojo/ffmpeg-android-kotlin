@@ -1,5 +1,5 @@
 pipeline {
-    agent AndroidDockerizedBuildSlave 
+    agent { label 'AndroidDockerizedBuildSlave' }
     stages {
         stage('Fetch submodules') {
             steps {
