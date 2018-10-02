@@ -26,6 +26,13 @@ FFmpeg, openh2664 build instructions
   3. `./build_android.sh`  - build ffmpeg & libopenh264
 * Find the executable binary in build/{arch}/bin directory.
 
+Docker build instructions
+----
+
+The binaries can be built from a docker container using the included Dockerfile. This sets the version of the NDK to an older, known-working version.
+
+`./docker_build.sh` will build the ffmpeg binaries (including openh264)
+
 Kotlin wrapper module instructions
 ----
 1. import [ffmpegandroid module](kotlin-wrapper/ffmpegandroid)  
@@ -42,12 +49,6 @@ with
 in your `app` build.gradle file (`dependencies` section)  
 
 4. [usage example](kotlin-wrapper/app/src/main/java/com/github/fourtalk/kotlin_wrapper/Converter.kt)
-
-TODO:
-----
-- Update the version of the NDK used to the most recent
-- Update instructions for the latest Android studio
-- Update compilation instructions (Docker)
 
 Licenses
 ----
