@@ -136,7 +136,7 @@ public String getArtifactoryUser() {
 }
 
 public String getArtifactoryPassword() {
-	return getStringProp('ARTIFACTORY_USER', null)
+	return getStringProp('ARTIFACTORY_PASSWORD', null)
 }
 
 public String getArtifactoryBaseUrl() {
