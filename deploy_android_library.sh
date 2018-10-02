@@ -11,6 +11,7 @@ cd kotlin-wrapper
 
 printf "Deploying to artifactory on $ARTIFACTORY_BASE_URL ${NC}\n"
 printf "With user: $ARTIFACTORY_USER ${NC}\n"
+printf "With password: $ARTIFACTORY_PASSWORD ${NC}\n"
 
 printf "Deploying kotlin-wrapper library"
 ./gradlew clean :ffmpegandroid:uploadArchives -PLOCAL_UPLOAD=false --stacktrace
