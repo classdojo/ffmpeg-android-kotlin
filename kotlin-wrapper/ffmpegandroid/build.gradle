@@ -1,18 +1,20 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
+apply plugin: 'maven'
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+
+group = 'com.classdojo.android'
+version = '1.0.0'
 
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
-    publishNonDefault true
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
     }
 
     buildTypes {
@@ -55,8 +57,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 def getNdkBuildCmd() {
@@ -90,4 +92,94 @@ artifacts {
 repositories {
     google()
     mavenCentral()
+}
+
+if (isLocalUpload()) {
+	version = version + "-LOCAL"
+}
+String versionClassifier = isSnapshot() ? "SNAPSHOT" : null
+if (versionClassifier != null) {
+	version = version + "-" + versionClassifier
+}
+
+Boolean localUpload = isLocalUpload()
+String localRepository = getLocalRepository()
+
+if (localUpload && localRepository == null) {
+	logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
+} else {
+	afterEvaluate {
+		uploadArchives {
+			repositories {
+				mavenDeployer {
+					if (localUpload) {
+						repository(url: uri(localRepository))
+					} else {
+						if (isSnapshot()) {
+							repository(url: "${getArtifactoryBaseUrl()}/list/libs-snapshot-local") {
+								authentication(userName: getArtifactoryUser(), password: getArtifactoryPassword())
+							}
+						} else {
+							repository(url: "${getArtifactoryBaseUrl()}/list/libs-release-local") {
+								authentication(userName: getArtifactoryUser(), password: getArtifactoryPassword())
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+public String getArtifactoryUser() {
+	return getStringProp('ARTIFACTORY_USER', null)
+}
+
+public String getArtifactoryPassword() {
+	return getStringProp('ARTIFACTORY_USER', null)
+}
+
+public String getArtifactoryBaseUrl() {
+    return getStringProp('ARTIFACTORY_BASE_URL', null)
+}
+
+public String getLocalRepository() {
+	return getStringProp('LOCAL_MAVEN_REPO', null)
+}
+
+public Boolean isLocalUpload() {
+	return getBooleanProp('LOCAL_UPLOAD', true)
+}
+
+public Boolean isSnapshot() {
+	return getBooleanProp('SNAPSHOT', true)
+}
+
+private String getStringProp(String propertyName, String defaultValue) {
+	return getProp(propertyName, defaultValue)
+}
+
+private Boolean getBooleanProp(String propertyName, Boolean defaultValue) {
+	Object value = getProp(propertyName, null)
+	if (value == null) {
+		return defaultValue
+	} else {
+		if (value == 'true') {
+			return true
+		} else if (value == 'false') {
+			return false;
+		} else {
+			throw new RuntimeException("The value [" + value + "] is not a valid boolean")
+		}
+	}
+}
+
+private def getProp(String propertyName, def defaultValue) {
+	if (project.ext.has(propertyName)) {
+		return project.ext.get(propertyName)
+	} else if (System.getenv().containsKey(propertyName)) {
+		return System.getenv(propertyName)
+	} else {
+		return defaultValue
+	}
 }
