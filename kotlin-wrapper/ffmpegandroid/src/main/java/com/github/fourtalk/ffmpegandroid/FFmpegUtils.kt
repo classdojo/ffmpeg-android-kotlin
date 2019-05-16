@@ -22,8 +22,12 @@ internal class NativeCpuHelper {
                 }
 
         val assetsDir: String =
-                if (Build.CPU_ABI.toLowerCase().startsWith("arm"))
+                if (Build.CPU_ABI.toLowerCase().startsWith("armeabi"))
                     "armeabi-v7a"
+                else if (Build.CPU_ABI.toLowerCase().startsWith("arm64"))
+                    "arm64-v8a"
+                else if (Build.CPU_ABI.toLowerCase().startsWith("x86_64"))
+                    "x86_64"
                 else if (Build.CPU_ABI.toLowerCase().startsWith("x86"))
                     "x86"
                 else

@@ -70,9 +70,9 @@ fi
 #[[ ":$PATH:" != *":/mnt/r/Android/sdk-linux/tools:"* ]] && PATH="/mnt/r/Android/sdk-linux/tools:${PATH}"
 #printf "PATH = $PATH\n\n"
 
-ANDROID_TARGET_API_VERSION=25
-ANDROID_API_VERSION=16
-NDK_TOOLCHAIN_ABI_VERSION=4.9
+ANDROID_TARGET_API_VERSION=28
+ANDROID_API_VERSION=21
+NDK_TOOLCHAIN_ABI_VERSION=clang3.4
 TOOLCHAIN_PREFIX=${BASEDIR}/toolchain-android
 
 NUMBER_OF_CORES=$(nproc)
@@ -81,4 +81,3 @@ TARGET_OS=android
 
 CFLAGS='-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -fno-strict-overflow -fstack-protector-all -fPIE -pie'
 LDFLAGS='-Wl,-z,relro -Wl,-z,now -pie -rdynamic'
-

@@ -1,3 +1,4 @@
 #!/bin/bash
 
-SUPPORTED_ARCHITECTURES=(armeabi-v7a x86)
+SUPPORTED_ARCHITECTURES=(armeabi-v7a arm64-v8a x86 x86_64)
+#SUPPORTED_ARCHITECTURES=(arm64-v8a)
