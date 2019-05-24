@@ -24,6 +24,9 @@ pipeline {
             }
         }
         stage('Deploy ffmpegandroid library to artifactory') {
+            when {
+                branch 'master'
+            }
             steps {
                 // Runs the gradle step to deploy the aar to artifactory
                 sh './docker_deploy_library.sh'
