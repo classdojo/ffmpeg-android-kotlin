@@ -14,10 +14,17 @@ case ${MODULE_ARCH} in
     CPU='armv7-a'
 	ASM='--enable-asm'
   ;;
+  arm64-v8a)
+    CPU='arm64'
+    ;;
   x86)
     CPU='i686'
 	ASM='--disable-asm --enable-pic'
   ;;
+  x86_64)
+    CPU='x86_64'
+  	ASM='--disable-asm --enable-pic'
+    ;;
 esac
 
 make distclean

@@ -43,7 +43,6 @@ make \
   SDK_MIN=${ANDROID_API_VERSION} \
   ARCH="${ARCH}" \
   NDKLEVEL=${ANDROID_API_VERSION} \
-  NDK_TOOLCHAIN_VERSION=clang \
   clean
 
 echo "Building"
@@ -57,7 +56,6 @@ make \
   ${ASM} \
   PREFIX="${TOOLCHAIN_PREFIX}" \
   NDKLEVEL=${ANDROID_API_VERSION} \
-  NDK_TOOLCHAIN_VERSION=clang \
   -j${NUMBER_OF_CORES} install || exit 1
 
 popd

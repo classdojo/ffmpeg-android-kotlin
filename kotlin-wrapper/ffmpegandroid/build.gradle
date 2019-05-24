@@ -6,7 +6,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 group = 'com.classdojo.android'
-version = '1.0.0'
+version = '2.0.0'
 
 android {
     compileSdkVersion 28
